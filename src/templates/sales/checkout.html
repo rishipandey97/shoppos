@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block sales %}
+<div class="container">
+
+    <p> Your Transaction was successfully processed!</p>
+    <a href="{% url 'sales:index' %}">Go Back to POS</a>
+
+    {{request_data}}
+    {{form}}
+</div>
+
+{% endblock sales %}

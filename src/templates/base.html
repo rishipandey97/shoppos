@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lassi Shop - {% block title %}{% endblock title %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.0.2/particles.js"></script>
+    <script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'js/simpleCart.js' %}"></script>
+    <script src="{% static 'js/product_filter.js' %}"></script>
+
+
+</head>
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-left"><img style="max-width:70px; max-height:70px; " src="{% static "images/lassishop.png" %}"></a>
+      <a class="navbar-brand" style="padding:0;margin: 0;" href="#"></a>
+      </div>
+
+
+      <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-center">
+            <li class="active"><a href="{% url 'sales:index' %}">POS</a></li>
+            <li><a data-toggle="tab" href="#dashboard">Dashboard</a></li>
+            <li><a data-toggle="tab" href="#">About Us</a></li>
+            {% if user.is_authenticated %}
+                     Hi {{ user.username }}!
+
+            <li><a href="{% url 'sales:productlist' %}">Product</a></li>
+
+
+            <li><a  href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a  href="{% url 'login' %}" >Login</a></li>
+            {% endif %}
+        </ul>
+          <p align="right"> Server time: {{ mytime }}</p>
+        </div>
+
+      </nav>
+
+    <div id="particles-js">
+        <br>
+        <div class="container">
+            <div class="jumbotron" style="position: absolute; padding: 10px;">
+            <center>
+            {% block welcome %}
+
+
+            {% endblock welcome %}
+
+                {% block content %}
+                {% endblock %}
+                {% block sales %}
+
+                {% endblock sales%}
+
+    </center>
+</div>
+
+</div>
+
+    </div>
+
+<br>
+<br>
+    <footer class="navbar-default navbar-fixed-bottom">
+  <div class="container-fluid">
+  <center> <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">Rishi Pandey</a></strong> </center>
+    </div>
+    </footer>
+
+</body>
+
+
+
+</html>

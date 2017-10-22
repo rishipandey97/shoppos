@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block sales %}
+{% load static %}
+<div class="container">
+
+          <div class="row">
+              <div class="col-sm-6" style="background-color:;padding:10px;">
+                  <div class="container">
+                      <p> Products</p>
+                      <div class="form-group has-feedback">
+                           <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for products..">
+                          <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                     </div>
+
+                      <table class="table table-sm table-responsive" id="myTable">
+                          <thead>
+                            <tr class="header">
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Add</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                          {% regroup prod_list by category as products_by_category %}
+                          {% for c in products_by_category %}
+                          {% for p in c.list %}
+
+                            <tr>
+                                 <div class="simpleCart_shelfItem">
+                                        <th scope="{{ p.id }}">{{ p.id }}</th>
+                                            <td class="item_name">{{ p.product_name }}</td>
+                                            <td>{{ p.category }}</td>
+                                            <td class="item_price"> &#x20B9;{{ p.price }}</td>
+                                     <td> <button class="item_add btn btn-sm btn-primary" href="javascript:;" onclick="simpleCart.add({name:'{{p.product_name}}', price:{{ p.price }}, quantity:1 });">Add </button></td>
+
+                                 </div>
+                            </tr>
+                          {% endfor %}
+                          {% endfor %}
+
+                          </tbody>
+
+                      </table>
+                </div>
+              </div>
+
+<!--Add absolute in styles of the container div-->
+              <div class="col-sm-6" style="padding:10px;position:relative;">
+                  <div class="container" style="position:absolute;">
+				    <p>Your Cart</p>
+                      <table class="table table-sm table-responsive table-bordered table-condensed table-hover"  id="myTable">
+                          <thead class="thead-inverse">
+                          <tr> <button href="javascript:;" class="simpleCart_empty btn btn-danger">Empty Cart</button> </tr>
+                          </thead>
+                        <tbody>
+                        <tr class="simpleCart_items"> </tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        </tbody>
+                      </table>
+                      <p>Grand Total:</p>
+                      <div class="simpleCart_grandTotal"> Grand Total</div>
+
+
+                  <br>
+                  <button class="btn btn-primary simpleCart_checkout"> Checkout!</button>
+                  </div>
+
+              </div>
+          </div>
+    <!--End of div class row-->
+</div>
+<!--end of div class container-->
+
+<script>
+        simpleCart({
+
+    cartStyle: "table",
+    cartColumns: [
+		{ attr: "name" , label: "Name" } ,
+		{ attr: "price" , label: "Price", view: 'currency' } ,
+		{ attr: "quantity" , label: "Qty" } ,
+		{ view: "decrement" , label: false , text: "-" } ,
+
+		{ view: "increment" , label: false , text: "+" } ,
+		{ attr: "total" , label: "SubTotal", view: 'currency' } ,
+		{ view: "remove" , text: "Remove" , label: false }
+	]
+ });
+
+
+
+ simpleCart.currency({
+    code: "MAC" ,
+    name: "Rupees" ,
+    symbol: "&#x20B9;" ,
+    delimiter: " " ,
+    decimal: "." ,
+});
+
+simpleCart({
+    checkout: {
+        type: "SendForm" ,
+        url: "{% url 'sales:checkout' %}" ,
+        // http method for form, "POST" or "GET", default is "POST"
+        method: "GET" ,
+        // url to return to on successful checkout, default is null
+        success: "success.html" ,
+        // url to return to on cancelled checkout, default is null
+        cancel: "cancel.html" ,
+        // an option list of extra name/value pairs that can
+        // be sent along with the checkout data
+        extra_data: {
+          storename: "Bob's cool plumbing store",
+          cartid: "12321321"
+        }
+    }
+
+
+});
+
+</script>
+    <script>
+
+    </script>
+
+
+
+
+{% endblock sales %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block sales %}
+<h3>This is the Product List view</h3>
+<div class="container">
+     <table class="table table-sm table-responsive" id="myTable">
+         <thead>
+         <tr class="header">
+             <th>#</th>
+             <th>Product Name</th>
+             <th>Category</th>
+             <th>Price</th>
+             <th>Edit</th>
+         </tr>
+         </thead>
+         <tbody>
+         {% for object in object_list %}
+
+         <tr>
+             <th>{{ object.id }}</th>
+             <td>{{ object.product_name }}</td>
+             <td>{{ object.category }}</td>
+             <td class="item_price"> &#x20B9;{{ object.price }}</td>
+             <td><a href="{{ object.get_absolute_url  }}" class="glyphicon glyphicon-pencil"></a></td>
+
+
+
+         </tr>
+         {% endfor %}
+
+         </tbody>
+     </table>
+</div>
+
+
+
+{% endblock sales %}
+

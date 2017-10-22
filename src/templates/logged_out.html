@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}See you!{% endblock title%}
+
+{% block content %}
+
+<div class="container" >
+    <div class="jumbotron">
+  <h2>Logged out</h2>
+  <p>You have been successfully logged out.</p>
+  <p><a href="{% url 'login' %}">Log in</a> again.</p>
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static 'js/particles.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/particle_one.css' %}" />
+
+
+{% endblock %}

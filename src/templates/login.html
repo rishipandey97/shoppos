@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title%}
+
+{% block content %}
+
+<div class="container" >
+    <div class="jumbotron">
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+    </div>
+</div>
+
+<!--Include Particle JS Background -->
+{% load static %}
+<script src="{% static 'js/particles.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/particle_one.css' %}" />
+{% endblock content %}
